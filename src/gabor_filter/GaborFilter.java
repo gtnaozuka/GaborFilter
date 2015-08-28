@@ -26,7 +26,7 @@ public class GaborFilter {
         this.aspectRatio = aspectRatio;
         this.convolveOp = new ConvolveOp(createKernel(), ConvolveOp.EDGE_ZERO_FILL, null);
     }
-    
+
     private Kernel createKernel() {
         double sigmaX = standardDeviation;
         double sigmaY = standardDeviation / aspectRatio;
@@ -49,7 +49,7 @@ public class GaborFilter {
                         + y[j][i] * Math.sin(orientation);
                 double yTheta = -x[j][i] * Math.sin(orientation)
                         + y[j][i] * Math.cos(orientation);
-                data[j*i + i] = (float) (Math.exp(-0.5
+                data[j * i + i] = (float) (Math.exp(-0.5
                         * (Math.pow(xTheta, 2) / Math.pow(sigmaX, 2)
                         + Math.pow(yTheta, 2) / Math.pow(sigmaY, 2)))
                         * Math.cos(2 * Math.PI / waveLength * xTheta + phaseOffset));
@@ -71,8 +71,8 @@ public class GaborFilter {
             }
         }
     }
-    
+
     public RenderedImage filter(BufferedImage originalImage, BufferedImage filteredImage) {
-      return convolveOp.filter(originalImage, filteredImage);
-   }
+        return convolveOp.filter(originalImage, filteredImage);
+    }
 }

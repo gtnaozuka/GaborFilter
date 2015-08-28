@@ -25,20 +25,20 @@ public class MainClass {
         try {
             File file = new File(IMG_PATH);
             BufferedImage originalImage = ImageIO.read(file);
-            BufferedImage filteredImage = new BufferedImage(originalImage.getWidth(), 
-                originalImage.getHeight(), originalImage.getType());
-            
-            GaborFilter gf = new GaborFilter(STANDARD_DEVIATION, ORIENTATION, 
+            BufferedImage filteredImage = new BufferedImage(originalImage.getWidth(),
+                    originalImage.getHeight(), originalImage.getType());
+
+            GaborFilter gf = new GaborFilter(STANDARD_DEVIATION, ORIENTATION,
                     WAVE_LENGTH, PHASE_OFFSET, ASPECT_RATIO);
             gf.filter(originalImage, filteredImage);
-            
+
             displayImage(originalImage, "Imagem Original");
             displayImage(filteredImage, "Imagem Filtrada");
         } catch (IOException ex) {
             Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private static void displayImage(BufferedImage img, String title) {
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
