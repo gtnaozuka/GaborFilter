@@ -19,11 +19,17 @@ public class MainClass {
     private static final double PHASE_OFFSET = 0;
     private static final double ASPECT_RATIO = 0.5;
 
-    private static final String IMG_PATH = "./src/images/lena.jpg";
+    private static final String EXTENSION = "jpg";
+    private static final String INPUT_PATH = "./src/images/fingerprint" + "." + EXTENSION;
+    private static final String OUTPUT_PATH = "./src/images/Fingerprint/Aspect Ratio/";
+    private static final String OUTPUT_FILENAME = String.valueOf(STANDARD_DEVIATION)
+            + "|" + String.valueOf(ORIENTATION) + "|" + String.valueOf(WAVE_LENGTH)
+            + "|" + String.valueOf(PHASE_OFFSET) + "|" + String.valueOf(ASPECT_RATIO)
+            + "." + EXTENSION;
 
     public static void main(String[] args) {
         try {
-            File file = new File(IMG_PATH);
+            File file = new File(INPUT_PATH);
             BufferedImage originalImage = ImageIO.read(file);
             BufferedImage filteredImage = new BufferedImage(originalImage.getWidth(),
                     originalImage.getHeight(), originalImage.getType());
@@ -32,8 +38,15 @@ public class MainClass {
                     WAVE_LENGTH, PHASE_OFFSET, ASPECT_RATIO);
             gf.filter(originalImage, filteredImage);
 
-            displayImage(originalImage, "Imagem Original");
-            displayImage(filteredImage, "Imagem Filtrada");
+            //displayImage(originalImage, "Imagem Original");
+            //displayImage(filteredImage, "Imagem Filtrada");
+            File output = new File(OUTPUT_PATH);
+            if (!output.exists()) {
+                output.mkdirs();
+            }
+
+            output = new File(OUTPUT_PATH + OUTPUT_FILENAME);
+            ImageIO.write(filteredImage, EXTENSION, output);
         } catch (IOException ex) {
             Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
         }
